@@ -63,10 +63,16 @@ def writeOwlFileWithGivenListOfKeywordsEndLinkNames(fileName, arrayWithKeywords)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-    writeOwlFileWithGivenListOfKeywords('write_all_named_individuals.txt', readFileLinesAndWriteThemToArray('out_processed.txt'))
+    print_hi('start reading')
+    # at first read kitchenclash urdf file and search for child links, copy all links in out_processed.txt
+    readFileSpecificLine('kitchenClash0.urdf', '<child link=')
+    keywordsArray = readFileLinesAndWriteThemToArray('out_processed.txt')
+    # remove all unncessasory words from out_processed such as <child link=, tabs, manually so that all rows contains only keywords
+    # After that create a owl file with named individuals along with proper formatting
+    writeOwlFileWithGivenListOfKeywords('write_all_named_individuals.txt', keywordsArray)
+    # create has endlink names for all keywords in array
     writeOwlFileWithGivenListOfKeywordsEndLinkNames('write_all_hasEndLinkName.txt',
-                                        readFileLinesAndWriteThemToArray('out_processed.txt'))
+                                        keywordsArray)
     print_hi('Finished!')
 
 
